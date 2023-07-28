@@ -1,0 +1,7 @@
+apis:
+  broadband:
+    root: ./openapi/ofcom-connected-nations-broadband-api.openapi.yaml
+extends:
+  - recommended
+rules:
+  info-license: 'off'

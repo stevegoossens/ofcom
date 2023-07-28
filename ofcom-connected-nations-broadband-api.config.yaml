@@ -1,0 +1,15 @@
+# OpenAPI Generator Plus generator configuration
+#
+# The path (relative to this configuration file) or a URL for your API specification
+inputPath: openapi/ofcom-connected-nations-broadband-api.openapi.yaml
+
+# The path (relative to this configuration file) where the generated API should be output
+outputPath: src/openapi/broadband
+
+# The name of the generator template used
+generator: "@openapi-generator-plus/typescript-fetch-node-client-generator"
+
+# Custom templates (overrides)
+customTemplates: templates
+
+# See https://github.com/karlvr/openapi-generator-plus-express-passport#readme for more configuration options
