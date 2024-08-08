@@ -1,59 +1,46 @@
-import {
-  Api as BroadbandApi,
-  Configuration as BroadbandConfiguration,
-  CoverageApi as BroadbandCoverageApi,
-  CoverageApiFactory as BroadbandCoverageApiFactory,
-} from './openapi/broadband';
-import {ApiError} from './errors';
+import 'dotenv/config';
 
-export type Configuration = BroadbandConfiguration;
+import createClient, { Client } from 'openapi-fetch';
 
-class Ofcom {
-  private _broadbandCoverageApi: BroadbandCoverageApi;
+import type { paths as pathsBroadband } from './openapi-fetch/broadband';
+import type { paths as pathsMobile } from './openapi-fetch/mobile';
 
-  constructor(configuration?: Configuration) {
-    this._broadbandCoverageApi = BroadbandCoverageApiFactory(configuration);
+export class BroadbandApi {
+  private client: Client<pathsBroadband>;
+
+  constructor() {
+    this.client = createClient<pathsBroadband>({
+      baseUrl: 'https://api-proxy.ofcom.org.uk/broadband',
+      headers: {
+        'Ocp-Apim-Subscription-Key': process.env.BROADBAND_API_KEY,
+      },
+    });
   }
-
-  async broadbandCoverage(
-    postcode: string
-  ): Promise<BroadbandApi.BroadbandProvision[]> {
-    try {
-      const response = await this._broadbandCoverageApi.coverageByPostCodeGet(
-        postcode.replaceAll(' ', '')
-      );
-      if (
-        response.status === 200 &&
-        response.body.PostCode &&
-        response.body.Availability
-      ) {
-        return response.body.Availability;
-      } else {
-        throw new ApiError(
-          `Bad response from API: status=${
-            response.status
-          }, body=${JSON.stringify(response.body)}`
-        );
+  async coverageByPostCode(postCode: string) {
+    return this.client.GET('/coverage/{PostCode}', {
+      params: {
+        path: { PostCode: postCode }
       }
-    } catch (error) {
-      throw this.getApiError(error);
-    }
-  }
-
-  /**
-   * Get ApiError or wrap a different thrown type with ApiError
-   *
-   * @param {unknown} error ApiError or unknown
-   * @returns {ApiError} ApiError or ApiError with cause (i.e. wrapped)
-   */
-  private getApiError(error: unknown): ApiError {
-    if (error instanceof ApiError) {
-      return error;
-    } else {
-      return new ApiError('Exception thrown during API call', {cause: error});
-    }
+    });
   }
 }
 
-module.exports = Ofcom;
-export default Ofcom;
+export class MobileApi {
+  private client: Client<pathsMobile>;
+
+  constructor() {
+    this.client = createClient<pathsMobile>({
+      baseUrl: 'https://api-proxy.ofcom.org.uk/mobile',
+      headers: {
+        'Ocp-Apim-Subscription-Key': process.env.MOBILE_API_KEY,
+      },
+    });
+  }
+  async coverageByPostCode(postCode: string) {
+    return this.client.GET('/coverage/{PostCode}', {
+      params: {
+        path: { PostCode: postCode }
+      }
+    });
+  }
+}
