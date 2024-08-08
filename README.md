@@ -65,14 +65,21 @@ MOBILE_API_KEY=01543987abcdef
 ### Example code
 
 ```typescript
-import { BroadbandApi, MobileApi } from "@stevegoossens/ofcom";
+import { BroadbandApi } from "@stevegoossens/ofcom";
 
 const broadbandApi = new BroadbandApi();
-const mobileApi = new MobileApi();
 
-const postCode = 'BR12WJ';
+const postCode = 'BR1 2WJ';
 
 const { data, error, response } = await broadbandApi.coverageByPostCode(postCode);
+```
+```typescript
+import { MobileApi } from "@stevegoossens/ofcom";
+
+const mobileApi = new MobileApi();
+
+const postCode = 'BR1 2WJ';
+
 const { data, error, response } = await mobileApi.coverageByPostCode(postCode);
 ```
 

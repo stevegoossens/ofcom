@@ -19,7 +19,7 @@ export class BroadbandApi {
   async coverageByPostCode(postCode: string) {
     return this.client.GET('/coverage/{PostCode}', {
       params: {
-        path: { PostCode: postCode }
+        path: { PostCode: postCode ? postCode.replaceAll(' ', '') : postCode }
       }
     });
   }
@@ -39,7 +39,7 @@ export class MobileApi {
   async coverageByPostCode(postCode: string) {
     return this.client.GET('/coverage/{PostCode}', {
       params: {
-        path: { PostCode: postCode }
+        path: { PostCode: postCode ? postCode.replaceAll(' ', '') : postCode }
       }
     });
   }

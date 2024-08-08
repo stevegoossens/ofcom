@@ -257,22 +257,18 @@ describe('Broadband API', () => {
     expect(error).toBeUndefined();
   });
 
-  test('gets error for postcode with space', async () => {
+  test('gets broadband provision for valid postcode without space', async () => {
     // given
     const broadbandApi = new BroadbandApi();
-    const postCode = 'BR1 2WJ';
+    const postCode = 'BR12WJ';
     
     // when
     const { data, error, response } = await broadbandApi.coverageByPostCode(postCode);
 
     // then
-    expect(response.status).toEqual(404);
-    expect(data).toBeUndefined();
-    expect(error).toEqual({
-      // @ts-ignore: bug, error type is the schema of the first 5xx or 4xx (in that order)
-      PostCode: postCode,
-      Error: 'Post code not found',
-    });
+    expect(response.status).toEqual(200);
+    expect(data).toEqual(responseBodyBroadband200);
+    expect(error).toBeUndefined();
   });
 
   test('gets error for invalid postcode', async () => {
@@ -350,7 +346,7 @@ describe('Mobile API', () => {
   test('gets mobile provision for valid postcode', async () => {
     // given
     const mobileApi = new MobileApi();
-    const postCode = 'BR12WJ';
+    const postCode = 'BR1 2WJ';
 
     // when
     const { data, error, response } = await mobileApi.coverageByPostCode(postCode);
@@ -361,22 +357,18 @@ describe('Mobile API', () => {
     expect(error).toBeUndefined();
   });
 
-  test('gets error for postcode with space', async () => {
+  test('gets mobile provision for valid postcode without space', async () => {
     // given
     const mobileApi = new MobileApi();
-    const postCode = 'BR1 2WJ';
+    const postCode = 'BR12WJ';
     
     // when
     const { data, error, response } = await mobileApi.coverageByPostCode(postCode);
 
     // then
-    expect(response.status).toEqual(404);
-    expect(data).toBeUndefined();
-    expect(error).toEqual({
-      // @ts-ignore: bug, error type is the schema of the first 5xx or 4xx (in that order)
-      PostCode: postCode,
-      Error: 'Post code not found',
-    });
+    expect(response.status).toEqual(200);
+    expect(data).toEqual(responseBodyMobile200);
+    expect(error).toBeUndefined();
   });
 
   test('gets error for invalid postcode', async () => {
