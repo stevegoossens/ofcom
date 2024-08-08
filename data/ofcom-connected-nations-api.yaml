@@ -1,0 +1,263 @@
+openapi: 3.0.1
+info:
+  title: Ofcom Connected Nations Mobile API
+  description: An API based on Connected Nations Mobile data.
+  version: '1.0'
+servers:
+  - url: https://api-proxy.ofcom.org.uk/mobile
+paths:
+  '/coverage/{PostCode}':
+    get:
+      summary: Get mobile provision by postcode
+      description: This endpoint will return 0/1/2/3/4 ratings for EE/H3/TF/VO mobile providers broken down by Voice/Data and Indoor/Outdoor
+      operationId: CoverageByPostCodeGet
+      parameters:
+        - name: PostCode
+          in: path
+          description: The postcode of interest
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "<p>Successful operation - mobile provision is returned</p>\r\n\r\n<p>The return values 0, 1, 2, 3 and 4 represents as follows :</p>\r\n    <ul>\r\n        <li> 0 = Clear (no signal predicted) </li>\r\n        <li> 1 = Red (reliable signal unlikely)</li>\r\n        <li> 2 = Amber (may experience problems with connectivity)</li>\r\n        <li> 3 = Green (likely to have good coverage and receive a data rate to support basic web services)</li>\r\n        <li> 4 = Enhanced (likely to have good coverage indoors and to receive an enhanced data rate to support multimedia services)</li>\r\n    </ul>"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileAvailability'
+              example:
+                PostCode: BR12WJ
+                Availability:
+                  - AddressShortDescription: 1, TANGLEBERRY CLOSE
+                    EEDataIndoor: 3
+                    EEDataIndoorNo4g: 0
+                    EEDataOutdoor: 4
+                    EEDataOutdoorNo4g: 3
+                    EEVoiceIndoor: 3
+                    EEVoiceIndoorNo4g: 3
+                    EEVoiceOutdoor: 4
+                    EEVoiceOutdoorNo4g: 4
+                    H3DataIndoor: 3
+                    H3DataIndoorNo4g: 0
+                    H3DataOutdoor: 4
+                    H3DataOutdoorNo4g: 3
+                    H3VoiceIndoor: 3
+                    H3VoiceIndoorNo4g: 0
+                    H3VoiceOutdoor: 4
+                    H3VoiceOutdoorNo4g: 4
+                    PostCode: BR12WJ
+                    TFDataIndoor: 3
+                    TFDataIndoorNo4g: 3
+                    TFDataOutdoor: 4
+                    TFDataOutdoorNo4g: 3
+                    TFVoiceIndoor: 3
+                    TFVoiceIndoorNo4g: 3
+                    TFVoiceOutdoor: 4
+                    TFVoiceOutdoorNo4g: 4
+                    UPRN: 100020416746
+                    VODataIndoor: 3
+                    VODataIndoorNo4g: 0
+                    VODataOutdoor: 4
+                    VODataOutdoorNo4g: 0
+                    VOVoiceIndoor: 3
+                    VOVoiceIndoorNo4g: 3
+                    VOVoiceOutdoor: 4
+                    VOVoiceOutdoorNo4g: 4
+                DBName: MobileAvailability-202406041254
+        '404':
+          description: Post Code not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileAvailabilityNotFound'
+              example:
+                PostCode: string
+                Error: string
+        '500':
+          description: General error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                Error: string
+components:
+  schemas:
+    MobileCoverageValue:
+      title: MobileCoverageValue
+      type: integer
+      description: "States:\n * `0` - Clear\n * `1` - Red\n * `2` - Amber\n * `3` - Green * `4` - Enhanced"
+      format: int
+      example: 1
+    MobileAvailabilityNotFound:
+      title: MobileAvailabilityNotFound
+      required:
+        - PostCode
+        - Error
+      type: object
+      properties:
+        PostCode:
+          maxLength: 7
+          type: string
+          description: 'Postcode of address, spaces removed'
+        Error:
+          type: string
+          description: A human readable error message
+    MobileAvailability:
+      title: MobileAvailability
+      required:
+        - PostCode
+        - Availability
+        - DBName
+      type: object
+      properties:
+        PostCode:
+          maxLength: 7
+          type: string
+          description: 'Postcode of address, spaces removed'
+        Availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileProvision'
+        DBName:
+          type: string
+    MobileProvision:
+      title: MobileProvision
+      required:
+        - UPRN
+        - AddressShortDescription
+        - PostCode
+        - EEVoiceOutdoor
+        - EEVoiceOutdoorNo4g
+        - EEVoiceIndoor
+        - EEVoiceIndoorNo4g
+        - EEDataOutdoor
+        - EEDataOutdoorNo4g
+        - EEDataIndoor
+        - EEDataIndoorNo4g
+        - H3VoiceOutdoor
+        - H3VoiceOutdoorNo4g
+        - H3VoiceIndoor
+        - H3VoiceIndoorNo4g
+        - H3DataOutdoor
+        - H3DataOutdoorNo4g
+        - H3DataIndoor
+        - H3DataIndoorNo4g
+        - TFVoiceOutdoor
+        - TFVoiceOutdoorNo4g
+        - TFVoiceIndoor
+        - TFVoiceIndoorNo4g
+        - TFDataOutdoor
+        - TFDataOutdoorNo4g
+        - TFDataIndoor
+        - TFDataIndoorNo4g
+        - VOVoiceOutdoor
+        - VOVoiceOutdoorNo4g
+        - VOVoiceIndoor
+        - VOVoiceIndoorNo4g
+        - VODataOutdoor
+        - VODataOutdoorNo4g
+        - VODataIndoor
+        - VODataIndoorNo4g
+      type: object
+      properties:
+        UPRN:
+          type: integer
+          description: Unique Property Reference Number
+          format: int32
+        AddressShortDescription:
+          type: string
+          description: 'A compiled address description based on use of the Ordnance Survey AddressBase fields of the form - Building Name, Building Number, Dependent_ThoroughFare'
+        PostCode:
+          maxLength: 7
+          type: string
+          description: 'Postcode of address, spaces removed'
+        EEVoiceOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEVoiceOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEVoiceIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEVoiceIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEDataOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEDataOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEDataIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        EEDataIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3VoiceOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3VoiceOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3VoiceIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3VoiceIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3DataOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3DataOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3DataIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        H3DataIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFVoiceOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFVoiceOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFVoiceIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFVoiceIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFDataOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFDataOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFDataIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        TFDataIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VOVoiceOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VOVoiceOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VOVoiceIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VOVoiceIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VODataOutdoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VODataOutdoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VODataIndoor:
+          $ref: '#/components/schemas/MobileCoverageValue'
+        VODataIndoorNo4g:
+          $ref: '#/components/schemas/MobileCoverageValue'
+    GeneralError:
+      title: GeneralError
+      required:
+        - Error
+      type: object
+      properties:
+        Error:
+          type: string
+          description: A human readable error message
+    MobileAvailabilityArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/MobileAvailability'
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

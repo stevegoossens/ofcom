@@ -47,7 +47,7 @@ paths:
                 $ref: '#/components/schemas/FixedAvailabilityNotFound'
               example:
                 PostCode: string
-                ErrorMessage: string
+                Error: string
         '500':
           description: General error
           content:
@@ -62,14 +62,14 @@ components:
       title: FixedAvailabilityNotFound
       required:
         - PostCode
-        - ErrorMessage
+        - Error
       type: object
       properties:
         PostCode:
           maxLength: 7
           type: string
           description: 'Postcode of address, spaces removed'
-        ErrorMessage:
+        Error:
           type: string
           description: A human readable error message
     FixedAvailability:
@@ -77,6 +77,7 @@ components:
       required:
         - PostCode
         - Availability
+        - Count
       type: object
       properties:
         PostCode:
@@ -87,6 +88,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BroadbandProvision'
+        Count:
+          type: integer
     BroadbandProvision:
       title: BroadbandProvision
       required:
@@ -141,10 +144,10 @@ components:
     GeneralError:
       title: GeneralError
       required:
-        - ErrorMessage
+        - Error
       type: object
       properties:
-        ErrorMessage:
+        Error:
           type: string
           description: A human readable error message
   securitySchemes:
