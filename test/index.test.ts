@@ -246,7 +246,7 @@ describe('Broadband API', () => {
   test('gets broadband provision for valid postcode', async () => {
     // given
     const broadbandApi = new BroadbandApi();
-    const postCode = 'BR12WJ';
+    const postCode = 'BR1 2WJ';
 
     // when
     const { data, error, response } = await broadbandApi.coverageByPostCode(postCode);
