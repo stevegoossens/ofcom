@@ -76,9 +76,9 @@ const { data, error, response } = await broadbandApi.coverageByPostCode(postCode
 const { data, error, response } = await mobileApi.coverageByPostCode(postCode);
 ```
 
-- data: successful response body
-- error: error response body
-- response: the `fetch` `Response`
+- `data`: successful response body
+- `error`: error response body
+- `response`: the `fetch` `Response`
 
 ## Development
 
@@ -106,6 +106,8 @@ The OpenAPI document for Broadband API has the following errata:
     - body schema has:
       - `statusCode` (type: integer)
       - `message` (type: string)
+    - headers:
+      - `WWW-Authenticate`: `AzureApiManagementKey realm="https://api-proxy.ofcom.org.uk/broadband",name="Ocp-Apim-Subscription-Key",type="header"`
   - 404 response body schema
     - `ErrorMessage` property is actually named `Error`
   - 500 response body schema
@@ -123,6 +125,8 @@ The OpenAPI document for Mobile API has the following errata:
     - body schema has:
       - `statusCode` (type: integer)
       - `message` (type: string)
+    - headers:
+      - `WWW-Authenticate`: `AzureApiManagementKey realm="https://api-proxy.ofcom.org.uk/broadband",name="Ocp-Apim-Subscription-Key",type="header"`
   - 404 response body schema
     - `ErrorMessage` property is actually named `Error`
   - 500 response body schema
