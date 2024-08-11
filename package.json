@@ -35,7 +35,7 @@
     "toc": "bunx markdown-toc -i README.md",
     "generate:broadband": "bunx openapi-typescript ./data/ofcom-connected-nations-broadband-api.yaml -o ./src/openapi-fetch/broadband.ts",
     "generate:mobile": "bunx openapi-typescript ./data/ofcom-connected-nations-api.yaml -o ./src/openapi-fetch/mobile.ts",
-    "build": "bun run build.mjs",
+    "build": "bun run build.bun.mts",
     "prepublishOnly": "bun run build",
     "lint": "bunx biome lint --write ./src",
     "format": "bunx biome format --write ./src",
