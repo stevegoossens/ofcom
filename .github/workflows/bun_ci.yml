@@ -1,4 +1,4 @@
-name: bun-lint-format-and-test
+name: CI test
 on: [pull_request]
 jobs:
   test:
