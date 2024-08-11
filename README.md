@@ -16,6 +16,9 @@ Client for api.ofcom.org.uk which provides Broadband speeds and Mobile coverage 
       - [Mobile errata](#mobile-errata)
   * [Install](#install-1)
     + [Generate code from OpenAPI](#generate-code-from-openapi)
+  * [Format](#format)
+  * [Lint](#lint)
+  * [Check](#check)
   * [Test](#test)
   * [Build](#build)
   * [Update Table of Contents](#update-table-of-contents)
@@ -158,6 +161,30 @@ Generate the API code:
 ```
 bun generate:broadband
 bun generate:mobile
+```
+
+### Format
+
+Apply code style
+
+```
+bun run format
+```
+
+### Lint
+
+Fix linting errors
+
+```
+bun run lint
+```
+
+### Check
+
+Fix linting errors and apply code style
+
+```
+bun run check
 ```
 
 ### Test
