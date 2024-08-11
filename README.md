@@ -1,5 +1,7 @@
 # @stevegoossens/ofcom
 
+![CI test](https://github.com/stevegoossens/ofcom/actions/workflows/bun_ci.yml/badge.svg)
+
 Client for api.ofcom.org.uk which provides Broadband speeds and Mobile coverage for each address of a specified postcode.
 
 <!-- toc -->
