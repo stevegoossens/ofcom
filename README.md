@@ -23,6 +23,9 @@ Client for api.ofcom.org.uk which provides Broadband speeds and Mobile coverage 
   * [Check](#check)
   * [Test](#test)
   * [Build](#build)
+  * [NPM](#npm)
+    + [Login to NPM repository](#login-to-npm-repository)
+    + [Publish to NPM repository](#publish-to-npm-repository)
   * [Update Table of Contents](#update-table-of-contents)
 
 <!-- tocstop -->
@@ -207,6 +210,26 @@ bun test --coverage
 
 ```
 bun run build
+```
+
+### NPM
+
+Publish package to NPM
+
+#### Login to NPM repository
+
+```
+npm login
+```
+
+Open the generated URL in a browser, login, supply the MFA/2FA code.
+
+#### Publish to NPM repository
+
+First time, if the package does not exist:
+
+```
+npm publish --access=public
 ```
 
 ### Update Table of Contents
