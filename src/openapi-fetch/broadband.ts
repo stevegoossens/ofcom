@@ -4,125 +4,125 @@
  */
 
 export interface paths {
-    "/coverage/{PostCode}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get broadband provision by postcode
-         * @description This endpoint will return predicted broadband speeds broken down by up/down and by Basic/Superfast/Ultrafast alongside percentage availability of the broadband speed categories.
-         */
-        get: operations["CoverageByPostCodeGet"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/coverage/{PostCode}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /**
+     * Get broadband provision by postcode
+     * @description This endpoint will return predicted broadband speeds broken down by up/down and by Basic/Superfast/Ultrafast alongside percentage availability of the broadband speed categories.
+     */
+    get: operations["CoverageByPostCodeGet"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        /** FixedAvailabilityNotFound */
-        FixedAvailabilityNotFound: {
-            /** @description Postcode of address, spaces removed */
-            PostCode: string;
-            /** @description A human readable error message */
-            Error: string;
-        };
-        /** FixedAvailability */
-        FixedAvailability: {
-            /** @description Postcode of address, spaces removed */
-            PostCode: string;
-            Availability: components["schemas"]["BroadbandProvision"][];
-            Count: number;
-        };
-        /** BroadbandProvision */
-        BroadbandProvision: {
-            /**
-             * Format: int32
-             * @description Unique Property Reference Number
-             */
-            UPRN: number;
-            /** @description A compiled address description based on use of the Ordnance Survey AddressBase fields of the form - Building Name, Building Number, Dependent_ThoroughFare */
-            AddressShortDescription: string;
-            /** @description Postcode of address, spaces removed */
-            PostCode: string;
-            /** Format: double */
-            MaxBbPredictedDown?: number;
-            /** Format: double */
-            MaxBbPredictedUp?: number;
-            /** Format: double */
-            MaxSfbbPredictedDown?: number;
-            /** Format: double */
-            MaxSfbbPredictedUp?: number;
-            /** Format: double */
-            MaxUfbbPredictedDown?: number;
-            /** Format: double */
-            MaxUfbbPredictedUp?: number;
-            /** Format: double */
-            MaxPredictedDown?: number;
-            /** Format: double */
-            MaxPredictedUp?: number;
-        };
-        /** GeneralError */
-        GeneralError: {
-            /** @description A human readable error message */
-            Error: string;
-        };
+  schemas: {
+    /** FixedAvailabilityNotFound */
+    FixedAvailabilityNotFound: {
+      /** @description Postcode of address, spaces removed */
+      PostCode: string;
+      /** @description A human readable error message */
+      Error: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    /** FixedAvailability */
+    FixedAvailability: {
+      /** @description Postcode of address, spaces removed */
+      PostCode: string;
+      Availability: components["schemas"]["BroadbandProvision"][];
+      Count: number;
+    };
+    /** BroadbandProvision */
+    BroadbandProvision: {
+      /**
+       * Format: int32
+       * @description Unique Property Reference Number
+       */
+      UPRN: number;
+      /** @description A compiled address description based on use of the Ordnance Survey AddressBase fields of the form - Building Name, Building Number, Dependent_ThoroughFare */
+      AddressShortDescription: string;
+      /** @description Postcode of address, spaces removed */
+      PostCode: string;
+      /** Format: double */
+      MaxBbPredictedDown?: number;
+      /** Format: double */
+      MaxBbPredictedUp?: number;
+      /** Format: double */
+      MaxSfbbPredictedDown?: number;
+      /** Format: double */
+      MaxSfbbPredictedUp?: number;
+      /** Format: double */
+      MaxUfbbPredictedDown?: number;
+      /** Format: double */
+      MaxUfbbPredictedUp?: number;
+      /** Format: double */
+      MaxPredictedDown?: number;
+      /** Format: double */
+      MaxPredictedUp?: number;
+    };
+    /** GeneralError */
+    GeneralError: {
+      /** @description A human readable error message */
+      Error: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    CoverageByPostCodeGet: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The postcode of interest */
-                PostCode: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful operation - broadband provision is returned */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FixedAvailability"];
-                };
-            };
-            /** @description Post Code not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FixedAvailabilityNotFound"];
-                };
-            };
-            /** @description General error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GeneralError"];
-                };
-            };
-        };
+  CoverageByPostCodeGet: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The postcode of interest */
+        PostCode: string;
+      };
+      cookie?: never;
     };
+    requestBody?: never;
+    responses: {
+      /** @description Successful operation - broadband provision is returned */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FixedAvailability"];
+        };
+      };
+      /** @description Post Code not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FixedAvailabilityNotFound"];
+        };
+      };
+      /** @description General error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GeneralError"];
+        };
+      };
+    };
+  };
 }
