@@ -1,6 +1,6 @@
 {
   "name": "@stevegoossens/ofcom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ofcom broadband speed and mobile coverage API clients",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
