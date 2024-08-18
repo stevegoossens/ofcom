@@ -101,7 +101,7 @@ components:
         UPRN:
           type: integer
           description: Unique Property Reference Number
-          format: int32
+          format: int64
         AddressShortDescription:
           type: string
           description: 'A compiled address description based on use of the Ordnance Survey AddressBase fields of the form - Building Name, Building Number, Dependent_ThoroughFare'

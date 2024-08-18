@@ -117,6 +117,7 @@ The OpenAPI document for Broadband API has the following errata:
 - `GET /coverage/{PostCode}`
   - 200 response body schema
     - is missing the `Count` property (type: integer)
+    - `UPRN` property in `BroadbandProvision` has format `int32`, but this is too small and should be `int64`
   - 401 response is missing
     - body schema has:
       - `statusCode` (type: integer)
