@@ -137,6 +137,7 @@ The OpenAPI document for Mobile API has the following errata:
   - 200 response body schema
     - is specified as `MobileAvailabilityArray` when it is actually `MobileAvailability`
     - is missing the `DBName` property (type: string)
+    - `UPRN` property in `MobileProvision` has format `int32`, but this is too small and should be `int64`
   - 401 response is missing
     - body schema has:
       - `statusCode` (type: integer)
